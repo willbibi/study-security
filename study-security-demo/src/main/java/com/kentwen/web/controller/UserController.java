@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.kentwen.dto.User;
 import com.kentwen.exception.UserNotExistException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,12 @@ import java.util.List;
 @RestController
 @Slf4j
 public class UserController {
+
+    @GetMapping("/me")
+    public Object getCurrentUser() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
 
     @GetMapping("/user")
     @JsonView(User.UserSimpleView.class)
